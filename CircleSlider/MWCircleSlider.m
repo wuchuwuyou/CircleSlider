@@ -76,26 +76,26 @@ static inline CGFloat AngleBetweenPoints(CGPoint a, CGPoint b, CGPoint c) {
     
     self.progress = angle / (360.f - _cutoutAngle);
 }
-- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    [super continueTrackingWithTouch:touch withEvent:event];
-    CGPoint location = [touch locationInView:self];
-    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    CGFloat radius = CGRectGetMidX(self.bounds) - self.lineWidth / 2;
-    CGFloat startAngle = _startAngle;
-    if (startAngle < 0)
-        startAngle = fabs(startAngle);
-    else
-        startAngle = 360.f - startAngle;
-    CGPoint startPoint = CGPointCenterRadiusAngle(center, radius, DegreesToRadians(startAngle));
-    CGFloat angle = RadiansToDegrees(AngleBetweenPoints(location, startPoint, center));
-    if (angle < 0) angle += 360.f;
-    angle = angle - _cutoutAngle / 2.f;
-    
-    self.progress = angle / (360.f - _cutoutAngle);
-    
-    return YES;
-    
-}
+//- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+//    [super continueTrackingWithTouch:touch withEvent:event];
+//    CGPoint location = [touch locationInView:self];
+//    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+//    CGFloat radius = CGRectGetMidX(self.bounds) - self.lineWidth / 2;
+//    CGFloat startAngle = _startAngle;
+//    if (startAngle < 0)
+//        startAngle = fabs(startAngle);
+//    else
+//        startAngle = 360.f - startAngle;
+//    CGPoint startPoint = CGPointCenterRadiusAngle(center, radius, DegreesToRadians(startAngle));
+//    CGFloat angle = RadiansToDegrees(AngleBetweenPoints(location, startPoint, center));
+//    if (angle < 0) angle += 360.f;
+//    angle = angle - _cutoutAngle / 2.f;
+//    
+//    self.progress = angle / (360.f - _cutoutAngle);
+//    
+//    return YES;
+//    
+//}
 - (void)setStartAngle:(CGFloat)startAngle {
     _startAngle = startAngle;
     [self setNeedsDisplay];
