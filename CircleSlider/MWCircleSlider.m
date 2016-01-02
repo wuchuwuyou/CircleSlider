@@ -137,6 +137,7 @@ static inline CGFloat AngleBetweenPoints(CGPoint a, CGPoint b, CGPoint c) {
     
     [self.guideLineColor set];
     CGContextAddArc(context, center.x, center.y, radius, arcStartAngle, arcEndAngle, 1);
+    CGContextSetLineCap(context, kCGLineCapRound);
     CGContextStrokePath(context);
    
     [self.tintColor set];
