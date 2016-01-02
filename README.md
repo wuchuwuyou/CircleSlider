@@ -1,2 +1,2 @@
 # CircleSlider
-原型滑动条
+圆形滑动条 
