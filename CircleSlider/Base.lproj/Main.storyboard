@@ -32,10 +32,10 @@
                                         <integer key="value" value="90"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                        <color key="value" red="0.20784313725490194" green="0.61176470588235299" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.078402664206731809" green="0.48498293155679617" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                        <color key="value" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="value" red="0.83220880681818188" green="0.83220880681818188" blue="0.83220880681818188" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="progress">
                                         <real key="value" value="0.69999999999999996"/>
