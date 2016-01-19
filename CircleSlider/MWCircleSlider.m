@@ -54,14 +54,53 @@ static inline CGFloat AngleBetweenPoints(CGPoint a, CGPoint b, CGPoint c) {
 }
 
 - (void)configureSlider {
-    UIGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+//    UIGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
     UIGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    [self addGestureRecognizer:panRecognizer];
+//    [self addGestureRecognizer:panRecognizer];
     [self addGestureRecognizer:tapRecognizer];
 }
+//检测触摸点是否在slider所在圆圈范围内
+- (BOOL)pointInsideCircle:(CGPoint)point {
+    CGPoint p1 =  CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    CGPoint p2 = point;
+    CGFloat xDist = (p2.x - p1.x);
+    CGFloat yDist = (p2.y - p1.y);
+    double distance = sqrt((xDist * xDist) + (yDist * yDist));
+    CGFloat radius = CGRectGetMidX(self.bounds) - self.lineWidth / 2 - self.handleOutSideRadius *2 ;
+    
+    CGFloat handleRadius = self.handleOutSideRadius;
+    
+    return distance < radius + self.lineWidth * 0.5 + handleRadius && distance > radius - self.lineWidth *0.5 - handleRadius;
+}
+
+////检测触摸点是否在滑动块中
+//- (BOOL)pointInsideHandle:(CGPoint)point {
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
+//    CGPoint handleCenter = [self pointOnCircleAtRadian:self.radianFromNorth];
+//    CGFloat handleRadius = MAX(LS_HANDLE_RADIUS * 2, 44.0) * 0.5;
+//    // Adhere to apple's design guidelines - avoid making touch targets smaller than 44 points
+//    
+//    // Treat handle as a box around it's center
+//    CGRect handleRect = CGRectMake(handleCenter.x - handleRadius, handleCenter.y - handleRadius, handleRadius * 2, handleRadius * 2);
+//    return CGRectContainsPoint(handleRect, point);
+//}
 
 - (void)handleGesture:(UIGestureRecognizer *)gesture {
     CGPoint location = [gesture locationInView:self];
+//    if ([self pointInsideCircle:location]) {
+        [self drawWithLocation:location];
+//    }
+}
+- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+    [super continueTrackingWithTouch:touch withEvent:event];
+    CGPoint location = [touch locationInView:self];
+//    if ([self pointInsideCircle:location]) {
+        [self drawWithLocation:location];
+//    }
+
+    return YES;
+}
+- (void)drawWithLocation:(CGPoint)location {
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     CGFloat radius = CGRectGetMidX(self.bounds) - self.lineWidth / 2;
     CGFloat startAngle = _startAngle;
@@ -76,26 +115,6 @@ static inline CGFloat AngleBetweenPoints(CGPoint a, CGPoint b, CGPoint c) {
     
     self.progress = angle / (360.f - _cutoutAngle);
 }
-//- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-//    [super continueTrackingWithTouch:touch withEvent:event];
-//    CGPoint location = [touch locationInView:self];
-//    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-//    CGFloat radius = CGRectGetMidX(self.bounds) - self.lineWidth / 2;
-//    CGFloat startAngle = _startAngle;
-//    if (startAngle < 0)
-//        startAngle = fabs(startAngle);
-//    else
-//        startAngle = 360.f - startAngle;
-//    CGPoint startPoint = CGPointCenterRadiusAngle(center, radius, DegreesToRadians(startAngle));
-//    CGFloat angle = RadiansToDegrees(AngleBetweenPoints(location, startPoint, center));
-//    if (angle < 0) angle += 360.f;
-//    angle = angle - _cutoutAngle / 2.f;
-//    
-//    self.progress = angle / (360.f - _cutoutAngle);
-//    
-//    return YES;
-//    
-//}
 - (void)setStartAngle:(CGFloat)startAngle {
     _startAngle = startAngle;
     [self setNeedsDisplay];
@@ -130,7 +149,7 @@ static inline CGFloat AngleBetweenPoints(CGPoint a, CGPoint b, CGPoint c) {
     CGContextScaleCTM(context, 1.0, -1.0);
     CGContextSetLineWidth(context, self.lineWidth);
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    CGFloat radius = CGRectGetMidX(self.bounds) - self.lineWidth / 2 - self.handleOutSideRadius ;
+    CGFloat radius = CGRectGetMidX(self.bounds) - self.lineWidth / 2 - self.handleOutSideRadius *2 ;
     CGFloat arcStartAngle = DegreesToRadians(self.startAngle + 360.0 - self.cutoutAngle / 2.0);
     CGFloat arcEndAngle = DegreesToRadians(self.startAngle + self.cutoutAngle / 2.0);
     CGFloat progressAngle = DegreesToRadians(360.f - self.cutoutAngle) * self.progress;
