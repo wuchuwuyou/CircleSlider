@@ -1,7 +1,7 @@
 # CircleSlider
-######Base on [WCCircularSlider](https://github.com/wireitcollege/WCCircularSlider)
+###### Base on [WCCircularSlider](https://github.com/wireitcollege/WCCircularSlider)
 
-圆形滑动条 
+ 圆形滑动条 
 
-![Screen Shot](./Simulator Screen Shot.png)
+ ![Screen Shot](Simulator Screen Shot.png)
 
