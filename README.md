@@ -3,5 +3,5 @@
 
  圆形滑动条 
 
- ![](Simulator Screen Shot.png)
+ ![](https://github.com/wuchuwuyou/CircleSlider/blob/master/Simulator%20Screen%20Shot.png)
 
