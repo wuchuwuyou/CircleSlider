@@ -3,5 +3,5 @@
 
  圆形滑动条 
 
- ![Screen Shot](Simulator Screen Shot.png)
+ ![](Simulator Screen Shot.png)
 
